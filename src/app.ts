@@ -1,6 +1,4 @@
 import axios from "axios";
-import { GOOGLE_API_KEY } from "./key";
-// import { Loader } from "@googlemaps/js-api-loader";
 
 /* DOM Elements */
 const form = document.querySelector("form")! as HTMLFormElement;
@@ -14,16 +12,17 @@ type GoogleGeocodingResponse = {
 };
 type Coords = { lat: number; lng: number };
 
-/* Global State (Bad Practice) */
+/* Global State */
 let myMap: MapState;
 let portlandCoords: Coords = { lat: 45.515232, lng: -122.6783853 };
-// let userCoords: Coords | null = null;
+let userCoords: Coords | null = null;
 let initZoom: number = 4;
 
 // Singleton for managing the map state
 class MapState {
   private static instance: MapState;
-  private map: google.maps.Map;
+  private map?: google.maps.Map;
+  private marker?: google.maps.Marker;
   private mapEl: HTMLDivElement;
   private coords: Coords;
   private zoom: number;
@@ -31,6 +30,7 @@ class MapState {
   // Setter for the coords property
   set coordinates(newCoords: Coords) {
     this.coords = newCoords;
+    this.render();
   }
 
   // Getter for the coords property
@@ -51,10 +51,7 @@ class MapState {
     this.mapEl = newMapEl;
     this.coords = newCoords;
     this.zoom = newZoom;
-    this.map = new google.maps.Map(this.mapEl, {
-      zoom: this.zoom,
-      center: this.coords,
-    });
+    this.render();
   }
 
   static getInstance(
@@ -65,8 +62,6 @@ class MapState {
     if (!this.instance) {
       this.instance = new MapState(newMapEl, newCoords, newZoom);
     }
-    console.log("MapState instance:", this.instance);
-    console.log("MapState instance map:", this.instance.map);
     return this.instance;
   }
 
@@ -75,7 +70,11 @@ class MapState {
       zoom: this.zoom,
       center: this.coords,
     });
-    console.log("rendering map:", this.map);
+    this.marker = new google.maps.Marker({
+      position: this.coords,
+      map: this.map,
+    });
+    console.log("New marker:", this.marker);
   }
 }
 
@@ -88,15 +87,15 @@ function searchAddressHandler(event: Event) {
     .get<GoogleGeocodingResponse>(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(
         enteredAddress
-      )}&key=${GOOGLE_API_KEY}`
+      )}&key=AIzaSyA7czqjPLupqHKx4vfgWaHrnpO2_BuZL2k`
     )
     .then((response) => {
       if (response.data.status !== "OK") {
         throw new Error("Could not fetch location!");
       }
-      const coordinates = response.data.results[0].geometry.location;
-      console.log("coordinates: ", coordinates);
-      myMap.coordinates = coordinates;
+      userCoords = response.data.results[0].geometry.location;
+      console.log("coordinates: ", userCoords);
+      myMap.coordinates = userCoords;
       myMap.zoomLevel = 16;
       myMap.render();
     })
