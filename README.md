@@ -2,7 +2,7 @@
 
 This app is a simple example of how to use the Google Maps API with Typescript.
 
-This was a practice project for learning Typescript. It was made by following this tutorial on Udemy: https://www.udemy.com/course/understanding-typescript/learn/lecture/16935782#content
+This was a practice project for learning Typescript. It was made by following [this tutorial](https://www.udemy.com/course/understanding-typescript/learn/lecture/16935782#content) on Udemy
 
 ## Tech Stack
 
