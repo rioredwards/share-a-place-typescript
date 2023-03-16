@@ -1,5 +1,4 @@
 import axios from "axios";
-import { GOOGLE_API_KEY } from "./key";
 
 /* DOM Elements */
 const form = document.querySelector("form")! as HTMLFormElement;
@@ -88,7 +87,7 @@ function searchAddressHandler(event: Event) {
     .get<GoogleGeocodingResponse>(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(
         enteredAddress
-      )}&key=${GOOGLE_API_KEY}`
+      )}&key=AIzaSyA7czqjPLupqHKx4vfgWaHrnpO2_BuZL2k`
     )
     .then((response) => {
       if (response.data.status !== "OK") {
