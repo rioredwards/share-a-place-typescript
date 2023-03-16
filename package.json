@@ -1,5 +1,5 @@
 {
-  "name": "understanding-typescript",
+  "name": "share-a-place-typescript",
   "version": "1.0.0",
   "description": "Understanding TypeScript Course Setup",
   "main": "app.js",
@@ -9,9 +9,11 @@
   },
   "keywords": [
     "typescript",
-    "course"
+    "course",
+    "Udemy",
+    "map"
   ],
-  "author": "Maximilian Schwarzmüller",
+  "author": "Rio Edwards",
   "license": "ISC",
   "devDependencies": {
     "ts-loader": "^9.4.2",
