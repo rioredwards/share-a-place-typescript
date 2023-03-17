@@ -15,11 +15,13 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     publicPath: "/dist/",
   },
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: "ts-loader",
+        include: [path.resolve(__dirname, "src")],
         exclude: /node_modules/,
       },
     ],

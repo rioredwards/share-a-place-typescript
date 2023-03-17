@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Share A Place!</title>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7czqjPLupqHKx4vfgWaHrnpO2_BuZL2k&callback=initMap"></script>
+    <script src="dist/bundle.js" defer></script>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <section>
+      <h1>Up and Running with Serverless Functions</h1>
+      <button id="fetch-btn">Fetch</button>
+      <button id="fetch-kanto-pokedex-btn">Fetch Kanto Pokedex</button>
+      <button id="fetch-hoenn-pokedex-btn">Fetch Hoenn Pokedex</button>
+      <p id="response-output">Response Placeholder</p>
+    </section>
+    <div id="map">
+      <p>Please enter an address!</p>
+    </div>
+    <form>
+      <input type="text" name="address" id="address" />
+      <button type="submit">Search Address</button>
+    </form>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const fetchBtn = document.getElementById("fetch-btn");
+        const fetchKantoPokedexBtn = document.getElementById(
+          "fetch-kanto-pokedex-btn"
+        );
+        const fetchHoennPokedexBtn = document.getElementById(
+          "fetch-hoenn-pokedex-btn"
+        );
+        const responseText = document.getElementById("response-output");
+
+        fetchBtn.addEventListener("click", async () => {
+          const response = await fetch("/.netlify/functions/hello-world");
+          console.log("response", response);
+          const data = await response.json();
+
+          responseText.innerText = data;
+        });
+
+        fetchKantoPokedexBtn.addEventListener("click", async () => {
+          const response = await fetch("/.netlify/functions/pokedex", {
+            method: "POST",
+            body: JSON.stringify({ region: "kanto" }),
+          });
+          const data = await response.json();
+          const pokemon = data.pokemon
+            .map((p) => p.pokemon_species.name)
+            .join(", ");
+
+          responseText.innerText = pokemon;
+        });
+
+        fetchHoennPokedexBtn.addEventListener("click", async () => {
+          const response = await fetch("/.netlify/functions/pokedex", {
+            method: "POST",
+            body: JSON.stringify({ region: "hoenn" }),
+          });
+          const data = await response.json();
+          const pokemon = data.pokemon
+            .map((p) => p.pokemon_species.name)
+            .join(", ");
+
+          responseText.innerText = pokemon;
+        });
+      });
+    </script>
+  </body>
+</html>
