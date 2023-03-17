@@ -3,6 +3,7 @@ const path = require("path");
 module.exports = {
   mode: "development",
   entry: "./src/app.ts",
+  devtool: "inline-source-map",
   devServer: {
     static: [
       {
@@ -15,7 +16,6 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     publicPath: "/dist/",
   },
-  devtool: "inline-source-map",
   module: {
     rules: [
       {

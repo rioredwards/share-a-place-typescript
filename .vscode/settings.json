@@ -18,5 +18,6 @@
     "titleBar.inactiveBackground": "#935c3499",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#935c34"
+  "peacock.color": "#935c34",
+  "cSpell.words": ["postbuild"]
 }
