@@ -2,3 +2,7 @@ node_modules
 dist
 .env
 key.ts
+.env.development.local
+
+# Local Netlify folder
+.netlify

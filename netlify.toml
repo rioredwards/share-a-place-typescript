@@ -1,0 +1,9 @@
+[build]
+ command = 'npm run prod'
+ publish = 'dist'
+ functions = "dist/functions"
+[dev]
+  command = "npm run dev" # Command to start your dev server
+  port = 8080 # Port that the dev server will be listening on
+  publish = "dist" # Folder with the static content for _redirect file
+  functions = "dist/functions"
