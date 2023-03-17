@@ -1,26 +1,15 @@
-import { Coords, GoogleGeocodingResponse } from "../types";
+import { Coords } from "../types";
 
 export async function fetchCoords(enteredAddress: string) {
-  let response: Response = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(
-      enteredAddress
-    )}&key=AIzaSyA7czqjPLupqHKx4vfgWaHrnpO2_BuZL2k`,
-    {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    }
-  );
+  const response = await fetch("/.netlify/functions/google-api", {
+    method: "POST",
+    body: JSON.stringify({ address: enteredAddress }),
+  });
 
   if (response.status !== 200) {
     throw new Error("Could not fetch location!");
   }
 
-  const data: GoogleGeocodingResponse = await response.json();
-
-  if (data.status !== "OK") {
-    throw new Error("Could not fetch location!");
-  }
-
-  const coords: Coords = data.results[0].geometry.location;
+  const coords: Coords = await response.json();
   return coords;
 }
