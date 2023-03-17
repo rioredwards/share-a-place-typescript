@@ -30,6 +30,7 @@ Geocoding - "the process of converting addresses (like "1600 Amphitheatre Parkwa
 - How to use the Netlify cli
 - How to create a serverless function with Netlify
 - How to deploy typescript apps to Netlify
+- How to use postbuild scripts to run commands after a build
 
 ## Acknowledgements
 
