@@ -1,10 +1,10 @@
 import { Coords } from "./types";
-// Singleton for managing the map state
+import { Loader } from "@googlemaps/js-api-loader";
 
+// Singleton for managing the map state
 export default class Map {
   private static instance: Map;
-  private map?: google.maps.Map;
-  private marker?: google.maps.Marker;
+  private loader: Loader;
   private mapEl: HTMLDivElement;
   private coords: Coords;
   private zoom: number;
@@ -30,6 +30,11 @@ export default class Map {
     newCoords: Coords,
     newZoom: number
   ) {
+    this.loader = new Loader({
+      apiKey: "AIzaSyA7czqjPLupqHKx4vfgWaHrnpO2_BuZL2k",
+      version: "weekly",
+      libraries: ["places"],
+    });
     this.mapEl = newMapEl;
     this.coords = newCoords;
     this.zoom = newZoom;
@@ -48,14 +53,20 @@ export default class Map {
   }
 
   render() {
-    this.map = new google.maps.Map(this.mapEl, {
-      zoom: this.zoom,
-      center: this.coords,
-    });
-    this.marker = new google.maps.Marker({
-      position: this.coords,
-      map: this.map,
-    });
-    console.log("New marker:", this.marker);
+    this.loader
+      .load()
+      .then((google) => {
+        const newMap = new google.maps.Map(this.mapEl, {
+          zoom: this.zoom,
+          center: this.coords,
+        });
+        new google.maps.Marker({
+          position: this.coords,
+          map: newMap,
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }
 }

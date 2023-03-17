@@ -8,10 +8,10 @@ const addressInput = document.getElementById("address")! as HTMLInputElement;
 const myMapEl = document.getElementById("map")! as HTMLDivElement;
 
 /* Global State */
-let myMap: Map;
-let portlandCoords: Coords = { lat: 45.515232, lng: -122.6783853 };
 let userCoords: Coords | null = null;
+let portlandCoords: Coords = { lat: 45.515232, lng: -122.6783853 };
 let initZoom: number = 4;
+let myMap: Map = Map.getInstance(myMapEl, portlandCoords, initZoom);
 
 async function searchAddressHandler(event: Event) {
   event.preventDefault();
@@ -26,14 +26,3 @@ async function searchAddressHandler(event: Event) {
 }
 
 form.addEventListener("submit", searchAddressHandler);
-
-// Initialize and add the map
-function initMap(): void {
-  myMap = Map.getInstance(myMapEl, portlandCoords, initZoom);
-}
-declare global {
-  interface Window {
-    initMap: () => void;
-  }
-}
-window.initMap = initMap;
