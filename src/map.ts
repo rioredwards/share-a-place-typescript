@@ -35,6 +35,7 @@ export default class Map {
       version: "weekly",
       libraries: ["places"],
     });
+    console.log("this.loader: ", this.loader);
     this.mapEl = newMapEl;
     this.coords = newCoords;
     this.zoom = newZoom;
