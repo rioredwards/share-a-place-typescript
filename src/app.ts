@@ -1,5 +1,6 @@
 import { fetchLocation } from "./services/google-services";
 import CustomMap from "./CustomMap";
+import { Viewport } from "./types";
 
 /* DOM Elements */
 const form = document.querySelector("form")! as HTMLFormElement;

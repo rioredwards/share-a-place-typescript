@@ -1,20 +1,4 @@
-import { Coords } from "../types";
-
-interface Viewport {
-  northeast: {
-    lat: number;
-    lng: number;
-  };
-  southwest: {
-    lat: number;
-    lng: number;
-  };
-}
-
-interface GoogleGeocodingResponse {
-  coords: Coords;
-  viewport: Viewport;
-}
+import { Coords, GoogleGeocodingResponse } from "../types";
 
 export async function fetchLocation(enteredAddress: string) {
   const response = await fetch("/.netlify/functions/google-api", {

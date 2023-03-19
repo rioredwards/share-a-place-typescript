@@ -20,6 +20,10 @@ export default class CustomMap {
     });
   }
 
+  // changeViewport(viewport: google.maps.LatLngBounds) {
+  //   this.googleMap.fitBounds(viewport);
+  // }
+
   updateCoords(newCoords: Coords) {
     this.googleMap.panTo(newCoords);
     this.googleMap.setZoom(4);
