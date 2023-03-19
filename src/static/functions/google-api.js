@@ -22,10 +22,12 @@ exports.handler = async function (event) {
     }
 
     const coords = data.results[0].geometry.location;
+    const viewport = data.results[0].geometry.viewport;
+    const locationData = JSON.stringify({ coords: coords, viewport: viewport });
 
     return {
       statusCode: 200,
-      body: JSON.stringify(coords),
+      body: locationData,
     };
   } catch (error) {
     console.error(error);
